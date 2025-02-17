@@ -4,6 +4,8 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Button, Input } from '@rneui/themed';
 import { auth } from "../../config/firebase";
 import { signOut } from 'firebase/auth';
+import { db } from "../../config/firebase";
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 export default function ProfileScreen({ navigation }) {
   
@@ -36,7 +38,17 @@ export default function ProfileScreen({ navigation }) {
     } catch (error) {
         console.error('Error al cerrar sesión:', error);
     }
-};
+  };
+  // actualiza los datos del user.
+  const handleUpdate = async () => {
+    try {
+        await setDoc(doc(db, 'usuarios', auth.currentUser.uid), profile);
+        alert('Perfil actualizado exitosamente');
+    } catch (error) {
+        console.error('Error al actualizar perfil:', error);
+        alert('Error al actualizar perfil');
+    }
+  };
   return (  
     <View style={styles.container}>
       <Text h4 style={styles.title}>Mi Perfil</Text>
@@ -55,6 +67,11 @@ export default function ProfileScreen({ navigation }) {
         type="outline"
         onPress={handleSignOut}
         containerStyle={styles.button}
+      />
+      <Button
+                title="Actualizar Perfil"
+                onPress={handleUpdate}
+                containerStyle={styles.button}
       />
     </View>
   );
