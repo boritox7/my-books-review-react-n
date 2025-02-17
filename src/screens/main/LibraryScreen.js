@@ -4,10 +4,10 @@ import { Image, Text, ListItem } from '@rneui/themed';
 
 
 const Item = ({item}) => (
-  
   <ListItem bottomDivider>
     <Image
       source={{ uri: item.imageLinks.thumbnail }}
+      style={{ width: 80, height: 80 }}
     />
     <ListItem.Content>
       <ListItem.Title>{item.title}</ListItem.Title>
@@ -26,7 +26,7 @@ export default function LibraryScreen() {
   async function cargarLibros(){
     try {
       const response = await fetch('https://reactnd-books-api.udacity.com/books', {
-        headers: {'Authorization': 'Aca puedes poner cualquier texto'}
+        headers: {'Authorization': 'texto'}
       });
 
       const jsonResponse = await response.json();
@@ -38,7 +38,7 @@ export default function LibraryScreen() {
   }
   return (
     <View style={styles.container}>
-      <FlatList  
+      <FlatList 
         data={books}
         renderItem={({item}) => <Item key={item.id} item={item} />}
         keyExtractor={item => item.id}/>
