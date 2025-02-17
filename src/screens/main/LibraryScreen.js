@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
-import { Image, Text, ListItem } from '@rneui/themed';
+import { View, StyleSheet, FlatList, Alert } from 'react-native';
+import { Image, Text, ListItem, Button } from '@rneui/themed';
+import { getDoc, doc, setDoc} from 'firebase/firestore';
+import {auth,db} from "../../config/firebase";
 
-
-const Item = ({item}) => (
+const Item = ({item, onAgregarFavorito}) => (
   <ListItem bottomDivider>
     <Image
       source={{ uri: item.imageLinks.thumbnail }}
@@ -12,6 +13,10 @@ const Item = ({item}) => (
     <ListItem.Content>
       <ListItem.Title>{item.title}</ListItem.Title>
       <ListItem.Subtitle>{item.subtitle}</ListItem.Subtitle>
+      <Button
+        title="agregar"
+        onPress={()=> onAgregarFavorito(item)}
+      />
     </ListItem.Content>
   </ListItem>
 );
@@ -19,6 +24,26 @@ const Item = ({item}) => (
 export default function LibraryScreen() {
   const [books, setBooks] = useState([]);
   
+  async function agregarFavorito(book){
+    try {
+      const userRef = doc(db, 'usuarios', auth.currentUser.uid);
+      const docSnap = await getDoc(userRef);
+      if (docSnap.exists()) {
+        const userProfile = docSnap.data();
+        const favoritos = userProfile.favoritos ?? []
+
+        if(!favoritos.some((f)=>f.id === book.id)){
+          favoritos.push(book); 
+          await setDoc(doc(db, 'usuarios', auth.currentUser.uid),{...userProfile, favoritos});
+          Alert.alert("El libro fue agregado.")
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    
+  }
+
   useEffect(()=>{
     cargarLibros()
   },[])
@@ -40,7 +65,7 @@ export default function LibraryScreen() {
     <View style={styles.container}>
       <FlatList 
         data={books}
-        renderItem={({item}) => <Item key={item.id} item={item} />}
+        renderItem={({item}) => <Item key={item.id} item={item} onAgregarFavorito={agregarFavorito}/>}
         keyExtractor={item => item.id}/>
     </View>
   );
