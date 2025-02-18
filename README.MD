@@ -18,18 +18,18 @@ cd my-books-review-react-n
 ## 🎯 Tareas Implementadas para este proyecto final.
 1. **Autenticación**
    - Firebase
-   - login con email/password
+   - Permite login con email/password
    - Gestion estados de autenticación
-   - validaciones de formularios
+   - Validaciones de formularios al momento de registrar usuario.
 
 2. **Gestión de Libros**
-   - La API de Udacity Books integrado
+   - Se conecta con la API de Udacity Books
    - Vista detallada de libros 
-   - Agregar libros a mi lista de favoritos.
-   - Quitar libros de mis favoritos.
+   - Permite agregar libros a mi lista de favoritos.
+   - Permite quitar libros de mis favoritos.
 
 3. **Sistema de reseñas**
-   - Se puede agregar reseña de un libro de la lista.
+   - Permite agregar mi reseña de un libro de la lista.
    - Ademas de agregar una reseña puedo calificar con un numero de estrellas el libro seleccionado.
 
 4. **Perfil de Usuario*
