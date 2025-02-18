@@ -28,11 +28,7 @@ cd my-books-review-react-n
    - La API de Udacity Books integrado
    - Vista detallada de libros
 
-3. **Sistema de Reseñas**
-   - Usuario puede agregar reseñas
-
-4. **Perfil de Usuario**
-   - Foto de perfil
+4. **Perfil de Usuario*
    - Gestion de información personal
 
 ## 📖 Licencia
