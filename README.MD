@@ -26,10 +26,13 @@ cd my-books-review-react-n
 
 2. **Gestión de Libros**
    - La API de Udacity Books integrado
-   - Vista detallada de libros
+   - Vista detallada de libros 
+   - Agregar libros a mi lista de favoritos.
+   - Quitar libros de mis favoritos.
 
 4. **Perfil de Usuario*
-   - Gestion de información personal
+   - registro de usuario con carga de imagen
+   - Actualizacion de información personal
 
 ## 📖 Licencia
 
