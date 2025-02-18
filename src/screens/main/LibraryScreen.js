@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
-import { Image, Text, ListItem, Button } from '@rneui/themed';
+import { Image, Text, ListItem, Button, Dialog } from '@rneui/themed';
 import { getDoc, doc, setDoc} from 'firebase/firestore';
 import {auth,db} from "../../config/firebase";
+import { createComponentForStaticNavigation } from '@react-navigation/native';
 
-const Item = ({item, onAgregarFavorito}) => (
-  <ListItem bottomDivider>
+const Item = ({item, onAgregarFavorito, onSelectBook}) => (
+  <ListItem bottomDivider
+    onPress={()=>onSelectBook(item)}
+  >
     <Image
       source={{ uri: item.imageLinks.thumbnail }}
       style={{ width: 80, height: 80 }}
@@ -14,7 +17,7 @@ const Item = ({item, onAgregarFavorito}) => (
       <ListItem.Title>{item.title}</ListItem.Title>
       <ListItem.Subtitle>{item.subtitle}</ListItem.Subtitle>
       <Button
-        title="agregar"
+        title="Mi favorito"
         onPress={()=> onAgregarFavorito(item)}
       />
     </ListItem.Content>
@@ -23,7 +26,13 @@ const Item = ({item, onAgregarFavorito}) => (
 
 export default function LibraryScreen() {
   const [books, setBooks] = useState([]);
-  
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [visible1, setVisible1] = useState(false);
+
+  const toggleDialog1 = () => {
+    setVisible1(!visible1);
+  };
+
   async function agregarFavorito(book){
     try {
       const userRef = doc(db, 'usuarios', auth.currentUser.uid);
@@ -43,7 +52,10 @@ export default function LibraryScreen() {
     }
     
   }
-
+  function seleccionarLibro(book){
+    setSelectedBook(book);
+    toggleDialog1();
+  }
   useEffect(()=>{
     cargarLibros()
   },[])
@@ -63,9 +75,16 @@ export default function LibraryScreen() {
   }
   return (
     <View style={styles.container}>
+      <Dialog
+       isVisible={visible1}
+       onBackdropPress={toggleDialog1} 
+       >
+      <Dialog.Title title={selectedBook?.title}/>
+      <Text>Publicado: {selectedBook?.publishedDate}</Text>
+     </Dialog>
       <FlatList 
         data={books}
-        renderItem={({item}) => <Item key={item.id} item={item} onAgregarFavorito={agregarFavorito}/>}
+        renderItem={({item}) => <Item key={item.id} item={item} onAgregarFavorito={agregarFavorito} onSelectBook={seleccionarLibro}/>}
         keyExtractor={item => item.id}/>
     </View>
   );

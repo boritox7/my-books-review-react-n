@@ -1,6 +1,5 @@
-//import React from 'react';
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { Text, Button, Input } from '@rneui/themed';
 import { auth } from "../../config/firebase";
 import { signOut } from 'firebase/auth';
@@ -51,7 +50,10 @@ export default function ProfileScreen({ navigation }) {
   };
   return (  
     <View style={styles.container}>
-      <Text h4 style={styles.title}>Mi Perfil</Text>
+             <Image
+                source={profile.image}
+                style={{ width: 100, height: 100 }}
+             />
             <Input
                 placeholder="Nombre"
                 value={profile.nombre}

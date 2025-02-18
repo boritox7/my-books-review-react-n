@@ -70,7 +70,7 @@ export default function RegisterScreen({ navigation }) {
         profilePicture: imageUrl || null
       });
 
-      navigation.replace('Home');
+      navigation.replace('Main');
     } catch (error) {
       setError('Error al registrarse: ' + error.message);
     }
@@ -78,14 +78,12 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text h3 style={styles.title}>Registro</Text>
-      
-      {image && <Image source={{ uri: image }} style={styles.image} />}
-      <Button title="Seleccionar Imagen" onPress={pickImage} />
+      <Text h3 style={styles.title}>Registro</Text>    
       <Input placeholder="Email" value={email} onChangeText={setEmail} autoCapitalize="none" />
       <Input placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry />
       <Input placeholder="Confirmar Contraseña" value={password2} onChangeText={setPassword2} secureTextEntry />
-      
+      {image && <Image source={{ uri: image }} style={styles.image} />}
+      <Button title="Seleccionar Imagen" onPress={pickImage} />
       {error ? <Text style={styles.error}>{error}</Text> : null} 
 
       <Button title="Registrarse" onPress={handleRegister} containerStyle={styles.button} />
