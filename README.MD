@@ -15,9 +15,7 @@
 git clone [https://github.com/boritox7/my-books-review-react-n/]
 cd my-books-review-react-n
 ```
-
-## 🎯 Tareas Implementadas
-
+## 🎯 Tareas Implementadas para este proyecto final.
 1. **Autenticación**
    - Firebase
    - login con email/password
@@ -30,9 +28,13 @@ cd my-books-review-react-n
    - Agregar libros a mi lista de favoritos.
    - Quitar libros de mis favoritos.
 
+3. **Sistema de reseñas**
+   - Se puede agregar reseña de un libro de la lista.
+   - Ademas de agregar una reseña puedo calificar con un numero de estrellas el libro seleccionado.
+
 4. **Perfil de Usuario*
    - registro de usuario con carga de imagen
-   - Actualizacion de información personal
+   - Actualizacion de información personal (Nombre y apellido)
 
 ## 📖 Licencia
 
